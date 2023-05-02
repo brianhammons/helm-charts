@@ -28,6 +28,7 @@ spec:
               url={{ .Values.modelsVolume.url | quote }}
               if [[ ! -f "{{ .Values.deployment.env.modelsPath }}/${url##*/}" ]]; then
                 wget {{ .Values.modelsVolume.url }} -P {{ .Values.deployment.env.modelsPath }} {{ if .Values.modelsVolume.auth.basic }}--header "Authorization: Basic {{ .Values.modelsVolume.auth.basic }}"{{ end }}
+                wget {{ .Values.modelsTemplate.url }} -O {{ .Values.deployment.env.modelsPath }}/{{ .Values.modelsTemplate.name }}
               fi
           volumeMounts:
           - mountPath: {{ .Values.deployment.env.modelsPath }}
